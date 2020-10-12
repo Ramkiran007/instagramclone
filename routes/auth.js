@@ -12,19 +12,19 @@ const jwt = require("jsonwebtoken");
 const shortId = require('shortid');                                 //we need shortid because every collection should be unique thats y we have to create key for model.
 const nodemailer = require('nodemailer')
 const sendgridTransport = require('nodemailer-sendgrid-transport')
+const {SENDGRID_API,EMAIL} = require('../config/keys')
 
 
 
-const transporter = nodemailer.createTransport(sendgridTransport({          //it is used to send email after user signup
+const transporter = nodemailer.createTransport(sendgridTransport({      //it is used to send mail after user signup successfully
     auth:{
-        api_key:"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"
+        api_key:SENDGRID_API
     }
 }))
 
 
-router.get('/', (req,res)=>{
-    res.send("Hello Ramkiran");
-});
+
+
 
 
 
@@ -120,7 +120,7 @@ router.post('/reset-password',(req,res)=>{                               // here
                     subject:"password reset",
                     html:`
                     <p>You requested for password reset</p>
-                    <h5>click in this <a href="http://localhost:3000/reset/${token}">link</a> to reset password</h5>
+                    <h5>click in this <a href="${EMAIL}/reset/${token}">link</a> to reset password</h5>
                     `
                 })
                 res.json({message:"check your email"})

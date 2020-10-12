@@ -9,7 +9,7 @@ const {MONGOURI} = require("./config/keys")
 // database connection
 mongoose.connect(MONGOURI, {useNewUrlParser: true, useCreateIndex: true, useFindAndModify:false, useUnifiedTopology: true })
 .then(()=>console.log('Your database is connected'))
-.catch(()=>console.log('Try to connect again'));
+.catch(()=>console.log('ERROR-Try to connect again'));
 
 
 
