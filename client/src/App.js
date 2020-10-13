@@ -12,8 +12,9 @@ import NewPassword from './components/screens/NewPassword'
 import UserProfile from './components/screens/UserProfile'
 import CreatePost from './components/screens/CreatePost'
 import {reducer,initialState} from './reducers/userReducer'
-
 import Error from './components/screens/Error' 
+import Search from './components/screens/Search'
+import SearchResult from './components/screens/SearchResult'
 
 export const UserContext = createContext()
 
@@ -43,6 +44,7 @@ const Routing = ()=>{
       <Route exact path ="/reset" component={Reset}/>
       <Route  path ="/reset/:token" component={NewPassword}/>
       <Route  path = "/create"  component ={CreatePost}></Route>
+      <Route path = "/search"   component = {Search}></Route>
 
       <Route exact component ={Error}/>
 
