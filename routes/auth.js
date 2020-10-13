@@ -28,7 +28,7 @@ const transporter = nodemailer.createTransport(sendgridTransport({      //it is 
 
 
 
-router.post('/signup',userSignupValidator, runValidation, (req,res)=>{
+router.post('/signup',userSignupValidator, runValidation, (req,res), next=>{
     const {name,email,password,pic} = req.body 
     let username = shortId.generate()
    /* if(!email || !password || !name ){
@@ -69,9 +69,10 @@ router.post('/signup',userSignupValidator, runValidation, (req,res)=>{
     .catch(err=>{
       console.log(err)
     })
+    next()
   })
 
-  router.post('/signin',userSigninValidator,runValidation,(req,res)=>{
+  router.post('/signin',userSigninValidator,runValidation,(req,res), next=>{
     const {email,password} = req.body
    /* if(!email || !password){
        return res.status(422).json({error:"please add email or password"})
@@ -98,6 +99,7 @@ router.post('/signup',userSignupValidator, runValidation, (req,res)=>{
             console.log(err)
         })
     })
+    next()
 })
 
 router.post('/reset-password',(req,res)=>{                               // here we are using this reset the password
