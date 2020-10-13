@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 5000;
 const cors = require('cors');
 const bodyParser = require("body-parser");
 const {MONGOURI} = require("./config/keys")
+var timeout = require('connect-timeout')
 
 // database connection
 mongoose.connect(MONGOURI, {useNewUrlParser: true, useCreateIndex: true, useFindAndModify:false, useUnifiedTopology: true })
@@ -24,7 +25,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json())
 
-
+app.use(timeout(120000));
+app.use(haltOnTimedout);
 
 
 
@@ -45,6 +47,9 @@ if(process.env.NODE_ENV=="production"){
     })
 }
 
+function haltOnTimedout(req, res, next){
+    if (!req.timedout) next();
+  }
 
 //connect server
 app.listen(PORT,()=>{console.log("Your server got connected")});
